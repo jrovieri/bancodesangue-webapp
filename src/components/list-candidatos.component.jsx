@@ -1,25 +1,25 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import ApiService from '../../services/api.service';
+import ApiService from '../services/api.service';
 
 class ListCandidatos extends React.Component {
   constructor(props) {
     super(props);
-    const { page, size } = this.props;
-
     this.state = {
-      page,
-      size,
+      page: 0,
+      size: 10,
       content: null
     }
   }
 
   componentDidMount() {
-    ApiService.listCandidatos(this.state).then(
-      response => {
-        this.setState({ content: response.data });
-      },
-      error => {
+    ApiService.listCandidatos(this.state)
+      .then(
+        response => {
+          console.log(response.data);
+          this.setState({ content: response.data });
+        })
+      .catch(error => {
         this.setState({
           content:
             (error.response &&
@@ -35,22 +35,15 @@ class ListCandidatos extends React.Component {
     return (
       <Table striped bordered hover>
         <thead>
-          <th>#</th>
-          <th>Nome</th>
-          <th>Estado</th>
-          <th>Cidade</th>
+          <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Estado</th>
+            <th>Cidade</th>
+          </tr>
         </thead>
         <tbody>
-          {
-            this.state.content.map((item, index) => (
-              <tr key={index}>
-                <td>{item.id}</td>
-                <td>{item.nome}</td>
-                <td>{item.estado}</td>
-                <td>{item.cidade}</td>
-              </tr>
-            ))
-          }
+          
         </tbody>
       </Table>
     )

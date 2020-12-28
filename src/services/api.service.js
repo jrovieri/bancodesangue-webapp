@@ -8,8 +8,11 @@ class ApiService {
   getStats = ({ path }) => axios.get(`${API_URL}/stats/${path}`);
 
   listCandidatos = ({ page, size }) => axios.get(`${API_URL}/candidatos`, {
-    page,
-    size
+    headers: authHeader(),
+    params: {
+      page,
+      size
+    }
   });
 
   getCandidatoById = id => axios.get(`${API_URL}/candidatos/${id}`, {

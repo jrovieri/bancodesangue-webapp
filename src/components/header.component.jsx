@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-const Header = ({ showCandidatosMenu, canLoadCandidatos}) => (
+const Header = ({ currentUser, showCandidatosMenu, canLoadCandidatos}) => (
   <div className='header'>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Navbar.Brand href="/">WK Banco de Sangue</Navbar.Brand>
@@ -32,7 +32,9 @@ const Header = ({ showCandidatosMenu, canLoadCandidatos}) => (
               }
             </Nav>
             <Nav>
-              <Nav.Link href="/login">Login</Nav.Link>
+              {
+                currentUser ? (<Nav.Link href="/logout">Logout</Nav.Link>) : (<Nav.Link href="/login">Login</Nav.Link>)
+              }
             </Nav>
           </Navbar.Collapse>
       </Navbar>

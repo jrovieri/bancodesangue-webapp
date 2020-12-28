@@ -10,6 +10,8 @@ import Header from './components/header.component';
 import Homepage from './pages/homepage/homepage.component';
 import Stats from './pages/stats/stats.component';
 import LoadCandidatos from './components/load-candidatos.component';
+import ListCandidatos from './components/list-candidatos.component';
+
 import Login from './components/login.component';
 
 import { clearMessage } from './actions/message';
@@ -56,6 +58,7 @@ class App extends React.Component {
           <Route exact path='/login' component={Login} />
           <Route exact path='/stats/:path' component={Stats}/>
           <Route exact path='/candidatos/load' component={LoadCandidatos} />
+          <Route exact path='/candidatos/list' component={ListCandidatos} />
         </Switch>
       </div>
     );
