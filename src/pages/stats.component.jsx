@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StatsTable from '../../components/stats-table.component';
+import StatsTable from '../components/stats-table.component';
 
 class Stats extends React.Component {
   constructor(props) {

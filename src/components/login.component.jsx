@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Alert, Spinner } from 'react-bootstrap';
+import React from 'react';
+import { Spinner } from 'react-bootstrap';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -39,6 +39,7 @@ class Login extends React.Component {
       })
       .catch(() => {
         this.setState({ loading: false });
+        alert('Acesso negado');
       });
   }
 
@@ -50,9 +51,8 @@ class Login extends React.Component {
     }
     
     return (
-      <Form onSubmit={this.onSubmitHandler} >
+      <Form className='login-form' onSubmit={this.onSubmitHandler} >
         <Form.Group controlId="formUsername">
-          <Form.Label>Username</Form.Label>
           <Form.Control type="text" 
             name="username"
             placeholder="Nome do usuário" 
@@ -61,7 +61,6 @@ class Login extends React.Component {
           />
         </Form.Group>
         <Form.Group controlId="formPassword">
-          <Form.Label>Password</Form.Label>
           <Form.Control type="password"
             name="password" 
             placeholder="Senha" 
@@ -81,18 +80,6 @@ class Login extends React.Component {
       </Form>
     )
   } 
-}
-
-const ShowAlert = message => {
-  const [ setShow ] = useState(true);
-  return (
-    <>
-      <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-        <Alert.Heading>Erro!</Alert.Heading>
-        <p>{message}</p>
-      </Alert>
-    </>
-  );
 }
 
 function mapStateToProps(state) {

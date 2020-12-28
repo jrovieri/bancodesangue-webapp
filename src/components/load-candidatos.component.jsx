@@ -5,12 +5,14 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import ApiService from '../services/api.service';
+import { Spinner } from 'react-bootstrap';
 
 class LoadCandidatos extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedFile: null
+      selectedFile: null,
+      loading: false
     }
   }
 
@@ -21,15 +23,19 @@ class LoadCandidatos extends React.Component {
   }
 
   onClickHandler = () => {
-    const formData = new FormData();
-    formData.append('file', this.state.selectedFile);
-    
+    this.setState({
+      loading: true
+    });
+
     ApiService.loadCandidatos(this.state.selectedFile)
-      .then(() => {
+      .then(response => {
         alert("Dados carregados com sucesso");
         this.props.history.push('/');  
       })
-      .catch(err => alert(err.message));
+      .catch(err => {
+        this.setState({ loading: false });
+        alert(err.message);
+      });
   }
 
   render() {
@@ -37,9 +43,16 @@ class LoadCandidatos extends React.Component {
       <Form>
         <Form.Group>
           <Form.Label>Selecionar arquivo</Form.Label>
-          <Form.Control type="file" onChange={this.onChangeHandler}></Form.Control>
+          <Form.Control type="file" onChange={this.onChangeHandler} required></Form.Control>
         </Form.Group>
-        <Button onClick={this.onClickHandler}>Enviar</Button>
+        <Button variant="primary" type="submit" disabled={this.state.loading} onClick={this.onClickHandler}>
+          {
+            this.state.loading && (
+              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            )
+          }
+          Enviar
+        </Button>
       </Form>
     )
   }

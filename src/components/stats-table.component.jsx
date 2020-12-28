@@ -21,7 +21,7 @@ class StatsTable extends React.Component {
     
     switch(path) {
       case 'obesos':
-        labels = ['Sexo', 'Proporção'];
+        labels = ['Sexo', 'Proporção' ];
         break;
       case 'estado':
         labels = ['Estado', 'Quantidade'];
@@ -63,7 +63,7 @@ class StatsTable extends React.Component {
               this.state.data && this.state.data.map((item, index) => (
                 <tr key={index}>
                   <td>{item.text}</td>
-                  <td>{item.value}</td>
+                  <td>{Number(item.value).toFixed(0)}</td>
                 </tr>
               ))
             }
